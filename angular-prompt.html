@@ -6,7 +6,7 @@
     <div class="modal-body">
 
         <p ng-if="options.message">
-            {{options.message}}
+            <span data-ng-bind-html="options.message"></span>
         </p>
 
         <form id="cgPromptForm" name="cgPromptForm" ng-if="options.input" ng-submit="submit()">

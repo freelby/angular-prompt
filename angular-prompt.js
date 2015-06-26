@@ -54,11 +54,13 @@ angular.module('cgPrompt').factory('prompt',['$modal','$q',function($modal,$q){
 	}
 ]);
 
-angular.module('cgPrompt').controller('cgPromptCtrl',['$scope','options','$timeout',function($scope,options,$timeout){
+angular.module('cgPrompt').controller('cgPromptCtrl',['$scope','options','$timeout','$sce',function($scope,options,$timeout,$sce){
 
     $scope.input = {name:options.value};
 
     $scope.options = options;
+
+    $scope.options.message = $sce.trustAsHtml($scope.options.message);
 
     $scope.buttonClicked = function(button){
         if (button.cancel){

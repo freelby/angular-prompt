@@ -54,11 +54,13 @@ angular.module('cgPrompt').factory('prompt',['$modal','$q',function($modal,$q){
 	}
 ]);
 
-angular.module('cgPrompt').controller('cgPromptCtrl',['$scope','options','$timeout',function($scope,options,$timeout){
+angular.module('cgPrompt').controller('cgPromptCtrl',['$scope','options','$timeout','$sce',function($scope,options,$timeout,$sce){
 
     $scope.input = {name:options.value};
 
     $scope.options = options;
+
+    $scope.options.message = $sce.trustAsHtml($scope.options.message);
 
     $scope.buttonClicked = function(button){
         if (button.cancel){
@@ -112,7 +114,7 @@ angular.module('cgPrompt').run(['$templateCache', function($templateCache) {
     "    <div class=\"modal-body\">\n" +
     "\n" +
     "        <p ng-if=\"options.message\">\n" +
-    "            {{options.message}}\n" +
+    "            <span data-ng-bind-html=\"options.message\"></span>\n" +
     "        </p>\n" +
     "\n" +
     "        <form id=\"cgPromptForm\" name=\"cgPromptForm\" ng-if=\"options.input\" ng-submit=\"submit()\">\n" +
